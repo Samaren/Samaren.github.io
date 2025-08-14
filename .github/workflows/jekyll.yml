@@ -6,4 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: actions/jekyll-build-pages@v1
+      with:
+        source: ./
+        destination: ./_site
     - uses: actions/upload-pages-artifact@v1
