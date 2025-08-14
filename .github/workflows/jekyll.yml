@@ -2,7 +2,7 @@ name: Jekyll site CI
 
 on:
   push:
-    branches: ["main"] # или "master" если используете старую ветку
+    branches: ["main"] # или "master" для старых репозиториев
 
 permissions:
   pages: write
@@ -12,20 +12,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-      
+        
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1' # Совместимая версия с GitHub Pages
+          ruby-version: '3.1' # Версия, совместимая с GitHub Pages
           bundler-cache: true
           
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v2
-        with:
-          source: ./
-          destination: ./_site
+      - name: Install dependencies
+        run: |
+          bundle config path vendor/bundle
+          bundle install
           
+      - name: Build with Jekyll
+        run: bundle exec jekyll build -d ./_site
+        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./_site
