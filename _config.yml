@@ -26,3 +26,4 @@ defaults:
       repository: Samaren/Samaren.github.io
       plugins:
   - jekyll-feed
+  - jekyll-seo-tag
