@@ -12,5 +12,10 @@ layout: default
     {{ content }}
   </div>
 
-  <!-- Сюда добавим комментарии позже -->
+  {% raw %}{% if page.comments %}
+    <div class="comments-section">
+      <h2>Комментарии</h2>
+      {% include comments.html %}
+    </div>
+  {% endif %}{% endraw %}
 </article>
