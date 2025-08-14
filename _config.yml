@@ -1,16 +1,25 @@
-title: konstantin
-description: This is my first site about me and my life
-baseurl: "" 
-url: "https://Samaren.github.io"
+# Основные настройки
+title: Константин
+description: Ваш блог
+baseurl: ""
+url: "https://samaren.github.io"
 theme: minima
 
-# Навигация
-navigation:
-  - name: Обо мне
-    url: /about/
-  - name: Блог
-    url: /blog/
+# Настройки блога
+collections:
+  posts:
+    output: true
+    permalink: /:year/:title/
 
-# Jekyll настройки
+# Плагины
 plugins:
   - jekyll-feed
+  - jekyll-paginate
+
+# Навигация
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
