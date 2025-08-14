@@ -1,0 +1,16 @@
+title: konstantin
+description: This is my first site about me and my life
+baseurl: "" 
+url: "https://Samaren.github.io"
+theme: minima
+
+# Навигация
+navigation:
+  - name: Обо мне
+    url: /about/
+  - name: Блог
+    url: /blog/
+
+# Jekyll настройки
+plugins:
+  - jekyll-feed
