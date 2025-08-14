@@ -23,3 +23,6 @@ defaults:
       type: posts
     values:
       layout: post
+      repository: Samaren/Samaren.github.io
+      plugins:
+  - jekyll-feed
