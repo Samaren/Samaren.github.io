@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04 # Явно указываем версию ОС
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -18,7 +18,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1' # Версия, совместимая с GitHub Pages
+          ruby-version: '3.1'
           bundler-cache: true
           
       - name: Install dependencies
@@ -30,6 +30,36 @@ jobs:
         run: bundle exec jekyll build -d ./_site
         
       - name: Upload artifact
+        uses: actions/upload-artifact@v4 # Используем актуальную v4
+        with:
+          name: jekyll-site
+          path: ./_site
+          retention-days: 1
+          
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: jekyll-site
+          path: ./_site
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
           path: ./_site
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
